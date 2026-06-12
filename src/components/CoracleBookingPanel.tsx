@@ -71,7 +71,7 @@ export default function CoracleBookingPanel({
     '04:30 PM - 06:00 PM'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!isBoatingPermitted) return;
     if (!customerName || !customerPhone) {
@@ -95,6 +95,28 @@ export default function CoracleBookingPanel({
       totalPrice: totalCost,
       status: 'Confirmed'
     };
+
+    // --- WHATSAPP INTEGRATION START ---
+    // 1. Format the message using the data before the form resets
+    const whatsappMessage = `*New Coracle Booking!* 🛶
+    
+*Booking ID:* ${newBooking.id}
+*Name:* ${customerName}
+*Phone:* ${customerPhone}
+*Venture Class:* ${selectedRide.name}
+*Date:* ${bookingDate}
+*Time Slot:* ${timeSlot}
+*Head Count:* ${numGuests} Guests (${numCoracles} Coracles)
+*Add-ons:* ${[addOnMassage ? 'Massage' : '', addOnFishFry ? 'Fish Fry' : '', addOnLocalGuide ? 'Guide' : ''].filter(Boolean).join(', ') || 'None'}
+*Total Cost:* ₹${totalCost}`;
+
+    // 2. Set your number and encode the URL
+    const whatsappNumber = "918301991822";
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // 3. Open WhatsApp in a new tab
+    window.open(whatsappURL, '_blank');
+    // --- WHATSAPP INTEGRATION END ---
 
     onBookingCreated(newBooking);
     setActivePassId(newBooking.id); // focus on newly booked ticket
