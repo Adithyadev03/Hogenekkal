@@ -1,0 +1,10 @@
+{
+  "name": "Hogenakkal Falls Boating",
+  "description": "Premium booking, water safety dashboard, and interactive guide portal for traditional Kaveri River coracle rides in Hogenakkal.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
